@@ -1,1 +1,12 @@
 // Specific CSS for your home-page
+.contact {
+  .fab {
+    font-size: 3em;
+    padding: 0.5em;
+    opacity:0.7;
+    cursor:pointer;
+    &:hover{
+      opacity:1;
+    }
+  }
+}

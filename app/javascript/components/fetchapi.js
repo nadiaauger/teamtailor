@@ -4,7 +4,6 @@ import { checkIfDepartment} from './finddata.js'
 const API_KEY = 'lrQqeKhgWSv7WS38KntM48UFQJvvYlQfx0R2lt-H';
 const VERSION = 20161108;
 const BASE_URL = 'https://api.teamtailor.com/v1/';
-const results = document.querySelector("#results");
 
 const receiveMessageJobHome = (event) => {
   event.preventDefault();

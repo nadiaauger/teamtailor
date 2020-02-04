@@ -2,12 +2,9 @@
 let features = [];
 
 const vue = (value, location, department) => {
-  // console.log('ici dans vue', value)
-  // console.log(location[0])
-  // console.log(department)
   let data = ``
   // console.log(location)
-  // console.log(location[0])
+  // console.log(department)
   if (location && department[0]) {
     console.log('la')
     location.forEach((data) => {
@@ -22,7 +19,24 @@ const vue = (value, location, department) => {
     </a>
   </li>`;
   results.insertAdjacentHTML("beforeend", element);
-  // map(location.concat());
+}
+
+const vueDepartment = (value) => {
+  value.forEach((data) => {
+    const element = `
+    <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://source.unsplash.com/random)">
+      ${data.attributes.name}
+    </div>`
+    cardsdept.insertAdjacentHTML("beforeend", element);
+  })
+}
+
+const vueLocation = (value) => {
+  let markers = {}
+  value.forEach((data) => {
+    markers = implementGeoJson(data)
+  })
+  map(features)
 }
 
 const map = (featuresTab) => {
@@ -38,7 +52,6 @@ const map = (featuresTab) => {
     type: 'FeatureCollection',
     features: featuresTab
   };
-  console.log(geojson)
   // add markers to map
   geojson.features.forEach(function(marker) {
 
@@ -54,22 +67,23 @@ const map = (featuresTab) => {
 }
 
 const implementGeoJson = (marker) => {
-  marker.forEach ((data) => {
-    features.push({
-      type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [data.long, data.lat]
-        },
-        properties: {
-          title: 'Mapbox',
-          description: ''
-        }
-    })
+  features.push({
+    type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [marker.attributes.long, marker.attributes.lat]
+      },
+      properties: {
+        title: 'Mapbox',
+        description: ''
+      }
   })
   return features
 }
 
+
 export {vue};
 export {map};
 export {implementGeoJson}
+export {vueDepartment}
+export {vueLocation}

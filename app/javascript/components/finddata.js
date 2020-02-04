@@ -19,42 +19,38 @@ const checkIfLocation = (job) => {
             id: loc[0].id,
             city: loc[0].attributes.city,
             country: loc[0].attributes.country,
-            lat: loc[0].attributes.lat,
-            long: loc[0].attributes.long
           }
           jobLoc.push(location)
         })
-      features = implementGeoJson(jobLoc)
     } else {
       jobLoc = []
     }
-    console.log('features', features)
-    map(features)
     return jobLoc
   })
 }
 
-const checkIfDepartment = (value) => {
+const checkIfDepartment = (job) => {
   const departments = receiveDepartment({
     number: 1,
     size:10
   })
   let jobDept = []
-  if(value.relationships.department.data) {
-    let deptId = value.relationships.department.data.id
-    departments.then(function(value){
-      let dept = value.filter(el => el.id === deptId);
-      let department = {
-        id: dept[0].id,
-        name: dept[0].attributes.name,
-        pictures: dept[0].attributes.pictures,
-      }
-      jobDept.push(JSON.stringify(department))
-    })
-  } else {
-    jobDept = []
-  }
-  return jobDept
+  departments.then(function(value){
+    if(job.relationships.department.data) {
+      let deptId = job.relationships.department.data.id
+        let dept = value.filter(el => el.id === deptId);
+        let department = {
+          id: dept[0].id,
+          name: dept[0].attributes.name,
+          pictures: dept[0].attributes.pictures,
+        }
+        jobDept.push(JSON.stringify(department))
+    } else {
+      jobDept = []
+    }
+    console.log('check if', jobDept)
+    return jobDept
+  })
 }
 
 const receiveLocation = (params) => {
@@ -73,3 +69,5 @@ const getValueByid = (id, data) => {
 
 export {checkIfLocation}
 export {checkIfDepartment}
+export {receiveDepartment}
+export {receiveLocation}

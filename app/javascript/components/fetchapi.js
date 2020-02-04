@@ -1,6 +1,11 @@
 import { vue } from './vue.js'
+import {vueDepartment} from './vue.js'
+import {vueLocation} from './vue.js'
 import { checkIfLocation} from './finddata.js'
 import { checkIfDepartment} from './finddata.js'
+import {receiveDepartment} from './finddata.js'
+import {receiveLocation} from './finddata.js'
+
 const API_KEY = 'lrQqeKhgWSv7WS38KntM48UFQJvvYlQfx0R2lt-H';
 const VERSION = 20161108;
 const BASE_URL = 'https://api.teamtailor.com/v1/';
@@ -15,9 +20,25 @@ const receiveMessageJobHome = (event) => {
     value.forEach((job) => {
       let location = checkIfLocation(job);
       let department = checkIfDepartment(job);
+      console.log('receive message', department)
       vue(job, location, department);
     });
   })
+  const departments = receiveDepartment({
+    number: 1,
+    size:10
+  })
+  departments.then(function(value){
+    vueDepartment(value)
+  })
+  const locations = receiveLocation({
+    number: 1,
+    size:10
+  })
+  locations.then(function(value){
+    vueLocation(value)
+  })
+
 };
 
 const receiveJob = (params) => {

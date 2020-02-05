@@ -1,21 +1,20 @@
-// const MAPBOX_API_KEY = 'pk.eyJ1IjoibmFkaWFhZyIsImEiOiJjazJnOWszZHEwOWp1M25wY3JkNjZyd3JlIn0.MxYIWsY8YvQCo6jKzOGGqw'
 let features = [];
-
-const vue = (value, location, department) => {
-  let data = ``
-  // console.log(location)
-  // console.log(department)
-  if (location && department[0]) {
-    console.log('la')
-    location.forEach((data) => {
-      data = `<p> ${location[0].city} - ${department[0].name}</p> `
-    })
-  }
-  // console.log(data)
+let i = 0;
+let j = 0;
+const vue = (value) => {
   const element = `<li class="job-li">
     <a href="${value.links["careersite-job-url"]}" class="link-job">
-      <p> ${value.attributes.title}</p>
-      ${data}
+      <p class="job-title"> ${value.attributes.title}</p>
+      <div class="d-flex justify-content-between">
+        <div class="d-flex">
+          <i class="fas fa-map-marker-alt "></i>
+          <p id="desc-loc"></p>
+        </div>
+        <div class="d-flex">
+          <p id="desc-dept"></p>
+          <i class="fas fa-building"></i>
+        </div>
+      </div>
     </a>
   </li>`;
   results.insertAdjacentHTML("beforeend", element);
@@ -81,9 +80,36 @@ const implementGeoJson = (marker) => {
   return features
 }
 
+const addLoc = (location) => {
+  const ul = document.querySelector('#results');
+  const items = ul.getElementsByTagName("li");
+  if (location.length > 0) {
+    location.forEach((loc) => {
+      items[i].querySelector("#desc-loc").insertAdjacentHTML("beforeend", ` ${loc.city}`)
+      items[i].querySelector(".fa-map-marker-alt").style.display = 'block';
+    })
+  }
+  i += 1
+}
+
+const addDept = (department) => {
+  const ul = document.querySelector('#results');
+  const items = ul.getElementsByTagName("li");
+  if (department.length > 0) {
+    department.forEach((dept) => {
+      items[j].querySelector("#desc-dept").insertAdjacentHTML("beforeend", ` ${dept.name}`)
+      items[j].querySelector(".fa-building").style.display = 'block';
+      console.log(items[j].querySelector(".fas fa-building"))
+    })
+  }
+  j += 1
+}
+
 
 export {vue};
 export {map};
 export {implementGeoJson}
 export {vueDepartment}
 export {vueLocation}
+export {addLoc}
+export {addDept}

@@ -1,6 +1,8 @@
 import {fetchData} from './fetchapi.js'
 import {map} from './vue.js'
 import {implementGeoJson} from './vue.js'
+import { addLoc } from './vue.js'
+import { addDept } from './vue.js'
 const BASE_URL = 'https://api.teamtailor.com/v1/';
 
 
@@ -10,7 +12,6 @@ const checkIfLocation = (job) => {
     size:10
   })
   let jobLoc = []
-  let features = []
   locations.then(function(value){
     if(job.relationships.locations.data.length != 0) {
       job.relationships.locations.data.forEach ((element) => {
@@ -25,7 +26,7 @@ const checkIfLocation = (job) => {
     } else {
       jobLoc = []
     }
-    return jobLoc
+    addLoc(jobLoc)
   })
 }
 
@@ -44,12 +45,11 @@ const checkIfDepartment = (job) => {
           name: dept[0].attributes.name,
           pictures: dept[0].attributes.pictures,
         }
-        jobDept.push(JSON.stringify(department))
+        jobDept.push(department)
     } else {
       jobDept = []
     }
-    console.log('check if', jobDept)
-    return jobDept
+    addDept(jobDept)
   })
 }
 

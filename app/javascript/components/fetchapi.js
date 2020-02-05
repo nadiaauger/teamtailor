@@ -1,8 +1,8 @@
 import { vue } from './vue.js'
 import {vueDepartment} from './vue.js'
 import {vueLocation} from './vue.js'
-import { checkIfLocation} from './finddata.js'
-import { checkIfDepartment} from './finddata.js'
+import {checkIfLocation} from './finddata.js'
+import {checkIfDepartment} from './finddata.js'
 import {receiveDepartment} from './finddata.js'
 import {receiveLocation} from './finddata.js'
 
@@ -18,10 +18,10 @@ const receiveMessageJobHome = (event) => {
   })
   job.then(function(value){
     value.forEach((job) => {
+      // console.log('receive message', department)
+      vue(job);
       let location = checkIfLocation(job);
       let department = checkIfDepartment(job);
-      console.log('receive message', department)
-      vue(job, location, department);
     });
   })
   const departments = receiveDepartment({
@@ -60,7 +60,6 @@ const fetchData = (url) => {
 
   return fetch(url, options)
     .then(response => response.json())
-    // .then((data) => {
       .then(json => {
         return new Promise((res, rej) => {
             if(!json || json.errors) {

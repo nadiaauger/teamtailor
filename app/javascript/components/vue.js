@@ -1,6 +1,7 @@
 let features = [];
 let i = 0;
 let j = 0;
+// This file contains all the printing's functions
 const vue = (value) => {
   const element = `<li class="job-li">
     <a href="${value.links["careersite-job-url"]}" class="link-job">

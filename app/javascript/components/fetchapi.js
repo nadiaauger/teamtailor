@@ -11,6 +11,7 @@ const VERSION = 20161108;
 const BASE_URL = 'https://api.teamtailor.com/v1/';
 
 const receiveMessageJobHome = (event) => {
+  // Fetch from the api the list of jobs, department and locations
   event.preventDefault();
   const job = receiveJob({
     number: 1,
@@ -18,7 +19,6 @@ const receiveMessageJobHome = (event) => {
   })
   job.then(function(value){
     value.forEach((job) => {
-      // console.log('receive message', department)
       vue(job);
       let location = checkIfLocation(job);
       let department = checkIfDepartment(job);

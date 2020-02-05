@@ -7,6 +7,7 @@ const BASE_URL = 'https://api.teamtailor.com/v1/';
 
 
 const checkIfLocation = (job) => {
+  //For each job, if location mentioned, print it.
   const locations = receiveLocation({
     number: 1,
     size:10
@@ -31,6 +32,7 @@ const checkIfLocation = (job) => {
 }
 
 const checkIfDepartment = (job) => {
+  //For each job, if department mentioned, print it.
   const departments = receiveDepartment({
     number: 1,
     size:10
@@ -59,12 +61,6 @@ const receiveLocation = (params) => {
 
 const receiveDepartment = (params) => {
   return fetchData(`${BASE_URL}departments`)
-}
-
-const getValueByid = (id, data) => {
-  return data.filter(
-      function(data){ return data.id == id }
-  );
 }
 
 export {checkIfLocation}
